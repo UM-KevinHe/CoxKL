@@ -35,9 +35,10 @@ KL_Cox_Estimate(z, delta, time, RS_internal, eta, tol=1.0e-7)
 kl_cox(RiskScore, eta_min, eta_max, length.out, eta_minby, df_internal, criteria, fold)
 ```
 - RiskScore: vector of predicted risk scores for subjects in the internal data.
-- eta_min, eta_max, length.out, eta_minby: for the integration weight sequence consturction, where eta_min is the start value, eta_max is the end value, length.out is length of eta sequence for each round of parameter search, and eta_minby is the minimal increment of the eta sequence. 
+- eta_min, eta_max, length.out, eta_minby: for the integration weight sequence consturction, where eta_min is the start value, eta_max is the end value, length.out is the length of eta sequence for each round of parameter search, and eta_minby is the minimal increment of the eta sequence. 
 - df_internal: internal data (Z, status, time).
-- criteria: model performance criteria for cross-validation, can be chose from "V&VH", "C-Index", "LP:log-partial likelihood", "LP: C-Index".
+- criteria: model performance criteria for cross-validation, can be chose from "V&VH", "C-Index", "LP: log-partial likelihood", "LP: C-Index", as discussed in
+  Dai, B. and Breheny, P. (2019). Cross validation approaches for penalized Cox regression. arXiv:1905.10432.
 - fold: desired number of folds for cross-validation. 
   
 ## Simulation example
