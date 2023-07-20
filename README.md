@@ -1,4 +1,4 @@
-# DiscreteKL: Kullback-Leibler-Based Cox Models
+# CoxKL: Kullback-Leibler-Based Cox Models
 
 This package is for the paper "Incorporating External Risk Information with the Cox Model under Population Heterogeneity: Applications to Trans-Ancestry Polygenic Hazard Scores".
 
@@ -15,7 +15,7 @@ Di Wang, Wen Ye, Ji Zhu, Gongjun Xu, Weijing Tang, Matthew Zawistowski, Lars G. 
 ```
 #Install the package, need to install the devtools packages:
 install.packages("devtools")
-devtools::install_github(diwangi/CoxKL")
+devtools::install_github("UM-KevinHe/CoxKL")
 ```
 
 ## Simulation example
