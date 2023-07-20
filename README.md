@@ -18,9 +18,34 @@ install.packages("devtools")
 devtools::install_github("UM-KevinHe/CoxKL")
 ```
 
+## Using CoxKL
+
+```
+#Use CoxKL estimate
+KL_Cox_Estimate(z, delta, time, RS_internal, eta, tol=1.0e-7)
+```
+- z is the covariate matrix.
+- delta is the vector of event indicators (1 = event, 0 = censor).
+- time is the vector of observed times.
+- RS_internal is the vector of predicted risk scores for subjects in the internal data.
+- eta is the integration weight. Note that if eta = 0, the CoxKL model reduces to a classical Cox model using internal data only.
+
+```
+#Use cross-validation to select the optimal integration weight
+kl_cox(RiskScore, eta_min, eta_max, length.out, eta_minby, df_internal, criteria, fold)
+```
+- RiskScore
+- eta_min
+- eta_max
+- length.out
+- eta_minby
+- df_internal
+- criteria
+- fold
+- 
 ## Simulation example
 
 Examples can be performed with the following tutorial:
-- Low dimensional setting: download and run R file "Simulation.R"
+- download and run R file "Simulation.R"
 
 
