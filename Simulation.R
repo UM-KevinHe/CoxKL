@@ -3,7 +3,7 @@ library(survival)
 library(Rcpp)
 library(Matrix)
 library(devtools)
-devtools::install_github("dwangi/CoxKL")
+devtools::install_github("UM-KevinHe/CoxKL")
 library(CoxKL)
 library(parallel)
 ###### this simulation code can be applied with parallel computing
