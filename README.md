@@ -24,25 +24,22 @@ devtools::install_github("UM-KevinHe/CoxKL")
 #Use CoxKL estimate
 KL_Cox_Estimate(z, delta, time, RS_internal, eta, tol=1.0e-7)
 ```
-- z is the covariate matrix.
-- delta is the vector of event indicators (1 = event, 0 = censor).
-- time is the vector of observed times.
-- RS_internal is the vector of predicted risk scores for subjects in the internal data.
-- eta is the integration weight. Note that if eta = 0, the CoxKL model reduces to a classical Cox model using internal data only.
+- z: covariate matrix.
+- delta: vector of event indicators (1 = event, 0 = censor).
+- time: vector of observed times.
+- RS_internal: vector of predicted risk scores for subjects in the internal data.
+- eta: integration weight. Note that if eta = 0, the CoxKL model reduces to a classical Cox model using internal data only.
 
 ```
 #Use cross-validation to select the optimal integration weight
 kl_cox(RiskScore, eta_min, eta_max, length.out, eta_minby, df_internal, criteria, fold)
 ```
-- RiskScore
-- eta_min
-- eta_max
-- length.out
-- eta_minby
-- df_internal
-- criteria
-- fold
-- 
+- RiskScore: vector of predicted risk scores for subjects in the internal data.
+- eta_min, eta_max, length.out, eta_minby: for the integration weight sequence consturction, where eta_min is the start value, eta_max is the end value, length.out is length of eta sequence for each round of parameter search, and eta_minby is the minimal increment of the eta sequence. 
+- df_internal: internal data (Z, status, time).
+- criteria: model performance criteria for cross-validation, can be chose from "V&VH", "C-Index", "LP:log-partial likelihood", "LP: C-Index".
+- fold: desired number of folds for cross-validation. 
+  
 ## Simulation example
 
 Examples can be performed with the following tutorial:
