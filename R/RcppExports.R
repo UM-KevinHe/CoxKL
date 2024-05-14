@@ -5,14 +5,6 @@ rev_cumsum <- function(X) {
     .Call(`_CoxKL_rev_cumsum`, X)
 }
 
-ddloglik <- function(Z, delta, beta) {
-    .Call(`_CoxKL_ddloglik`, Z, delta, beta)
-}
-
-cal_S0 <- function(theta, delta) {
-    .Call(`_CoxKL_cal_S0`, theta, delta)
-}
-
 ddloglik_2KL_RS <- function(Z, delta, beta, theta_tilde1, theta_tilde2, eta1, eta2) {
     .Call(`_CoxKL_ddloglik_2KL_RS`, Z, delta, beta, theta_tilde1, theta_tilde2, eta1, eta2)
 }
@@ -21,4 +13,11 @@ ddloglik_KL_RS <- function(Z, delta, beta, theta_tilde, eta) {
     .Call(`_CoxKL_ddloglik_KL_RS`, Z, delta, beta, theta_tilde, eta)
 }
 
+ddloglik <- function(Z, delta, beta) {
+    .Call(`_CoxKL_ddloglik`, Z, delta, beta)
+}
+
+cal_S0 <- function(theta, delta) {
+    .Call(`_CoxKL_cal_S0`, theta, delta)
+}
 

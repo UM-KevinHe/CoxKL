@@ -11,44 +11,20 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// rev_cumsum
 List rev_cumsum(Eigen::MatrixXd X);
-RcppExport SEXP _CoxKL_rev_cumsum(SEXP XSEXP){
+RcppExport SEXP _CoxKL_rev_cumsum(SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
     rcpp_result_gen = Rcpp::wrap(rev_cumsum(X));
     return rcpp_result_gen;
-END_RCPP   
+END_RCPP
 }
-
-List ddloglik(Eigen::MatrixXd Z, Eigen::MatrixXd delta, Eigen::MatrixXd beta);
-RcppExport SEXP _CoxKL_ddloglik(SEXP ZSEXP, SEXP deltaSEXP, SEXP betaSEXP){
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type Z(ZSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type delta(deltaSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type beta(betaSEXP);
-    rcpp_result_gen = Rcpp::wrap(ddloglik(Z, delta, beta));
-    return rcpp_result_gen;
-END_RCPP   
-}
-
-List cal_S0(Eigen::MatrixXd theta, Eigen::MatrixXd delta);
-RcppExport SEXP _CoxKL_cal_S0(SEXP thetaSEXP, SEXP deltaSEXP){
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type theta(thetaSEXP);
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type delta(deltaSEXP);
-    rcpp_result_gen = Rcpp::wrap(cal_S0(theta, delta));
-    return rcpp_result_gen;
-END_RCPP   
-}
-
+// ddloglik_2KL_RS
 List ddloglik_2KL_RS(Eigen::MatrixXd Z, Eigen::MatrixXd delta, Eigen::MatrixXd beta, Eigen::MatrixXd theta_tilde1, Eigen::MatrixXd theta_tilde2, double eta1, double eta2);
-RcppExport SEXP _CoxKL_ddloglik_2KL_RS(SEXP ZSEXP, SEXP deltaSEXP, SEXP betaSEXP, SEXP theta_tilde1SEXP, SEXP theta_tilde2SEXP, SEXP eta1SEXP, SEXP eta2SEXP){
+RcppExport SEXP _CoxKL_ddloglik_2KL_RS(SEXP ZSEXP, SEXP deltaSEXP, SEXP betaSEXP, SEXP theta_tilde1SEXP, SEXP theta_tilde2SEXP, SEXP eta1SEXP, SEXP eta2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -61,11 +37,11 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type eta2(eta2SEXP);
     rcpp_result_gen = Rcpp::wrap(ddloglik_2KL_RS(Z, delta, beta, theta_tilde1, theta_tilde2, eta1, eta2));
     return rcpp_result_gen;
-END_RCPP   
+END_RCPP
 }
-
+// ddloglik_KL_RS
 List ddloglik_KL_RS(Eigen::MatrixXd Z, Eigen::MatrixXd delta, Eigen::MatrixXd beta, Eigen::MatrixXd theta_tilde, double eta);
-RcppExport SEXP _CoxKL_ddloglik_KL_RS(SEXP ZSEXP, SEXP deltaSEXP, SEXP betaSEXP, SEXP theta_tildeSEXP, SEXP etaSEXP){
+RcppExport SEXP _CoxKL_ddloglik_KL_RS(SEXP ZSEXP, SEXP deltaSEXP, SEXP betaSEXP, SEXP theta_tildeSEXP, SEXP etaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -76,15 +52,40 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type eta(etaSEXP);
     rcpp_result_gen = Rcpp::wrap(ddloglik_KL_RS(Z, delta, beta, theta_tilde, eta));
     return rcpp_result_gen;
-END_RCPP   
+END_RCPP
+}
+// ddloglik
+List ddloglik(Eigen::MatrixXd Z, Eigen::MatrixXd delta, Eigen::MatrixXd beta);
+RcppExport SEXP _CoxKL_ddloglik(SEXP ZSEXP, SEXP deltaSEXP, SEXP betaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type Z(ZSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type beta(betaSEXP);
+    rcpp_result_gen = Rcpp::wrap(ddloglik(Z, delta, beta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cal_S0
+List cal_S0(Eigen::MatrixXd theta, Eigen::MatrixXd delta);
+RcppExport SEXP _CoxKL_cal_S0(SEXP thetaSEXP, SEXP deltaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type theta(thetaSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type delta(deltaSEXP);
+    rcpp_result_gen = Rcpp::wrap(cal_S0(theta, delta));
+    return rcpp_result_gen;
+END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_CoxKL_rev_cumsum", (DL_FUNC) &_CoxKL_rev_cumsum, 1},
-    {"_CoxKL_ddloglik", (DL_FUNC) &_CoxKL_ddloglik, 3},
-    {"_CoxKL_cal_S0", (DL_FUNC) &_CoxKL_cal_S0, 2},
     {"_CoxKL_ddloglik_2KL_RS", (DL_FUNC) &_CoxKL_ddloglik_2KL_RS, 7},
     {"_CoxKL_ddloglik_KL_RS", (DL_FUNC) &_CoxKL_ddloglik_KL_RS, 5},
+    {"_CoxKL_ddloglik", (DL_FUNC) &_CoxKL_ddloglik, 3},
+    {"_CoxKL_cal_S0", (DL_FUNC) &_CoxKL_cal_S0, 2},
     {NULL, NULL, 0}
 };
 

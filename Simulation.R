@@ -4,6 +4,7 @@ library(Rcpp)
 library(Matrix)
 library(devtools)
 devtools::install_github("UM-KevinHe/CoxKL")
+#devtools::load_all("/home/dwwang/CoxKL_main")
 library(CoxKL)
 library(parallel)
 ###### this simulation code can be applied with parallel computing
@@ -32,13 +33,8 @@ KL2 <- function(x){
   }
   
   mean_Hcindex_KL <- mean(replace(Hcindex_KL, Hcindex_KL == 0, NA), na.rm = TRUE)
-  mean_beta_KL <- colMeans(replace(beta_KL, beta_KL == 0, NA), na.rm = TRUE)
-  mean_Bias_KL <- mean(abs(mean_beta_KL-beta))
-  ESE_KL <- mean(apply(replace(beta_KL, beta_KL == 0, NA), MARGIN = 2, function(x){sd(x, na.rm = TRUE)}))
-  MSE_KL <- mean_Bias_KL^2+ESE_KL^2
   
-  return_list <- list("Hcindex" = mean_Hcindex_KL, "Bias" = mean_Bias_KL, 
-                      "SE" = ESE_KL, "MSE" = MSE_KL)
+  return_list <- list("Hcindex" = mean_Hcindex_KL)
   return(return_list)
 }
 
@@ -78,8 +74,6 @@ Bias_KL <- rep(0, (length.out+1))
 SE_KL <- rep(0, (length.out+1))
 MSE_KL <- rep(0, (length.out+1))
 beta_internal <- as.data.frame(matrix(rep(0, 6*rep), rep, 6))
-
-old_time_GD=proc.time()
 
 data_internal_list <- vector(mode="list", length=rep)
 eta_list <- vector(mode="list", length=(length.out+1))
@@ -122,32 +116,16 @@ for (i in 1:rep){
 }
 
 mean_Hcindex_internal <- mean(replace(Hcindex_internal, Hcindex_internal == 0, NA), na.rm = TRUE)
-mean_beta_internal <- colMeans(replace(beta_internal, beta_internal == 0, NA), na.rm = TRUE)
-mean_Bias_internal <- mean(abs(mean_beta_internal-beta))
-ESE_internal <- mean(apply(replace(beta_internal, beta_internal == 0, NA), MARGIN = 2, function(x){sd(x, na.rm = TRUE)}))
-MSE_internal <- mean_Bias_internal^2+ESE_internal^2
 
 for (i in 1:(length.out+1)){
   {
     results_KL2 <- models_KL2[[i]]
-    Bias_KL[i] <- results_KL2$Bias
-    SE_KL[i] <- results_KL2$SE
-    MSE_KL[i] <- results_KL2$MSE
     Hcindex_KL[i] <- results_KL2$Hcindex
   }
 }
 
-time_GD=proc.time()-old_time_GD
-time_GD
-
 mean_Hcindex2 <- mean_Hcindex_internal
-mean_Bias2 <- mean_Bias_internal
-mean_SE2 <- ESE_internal
-mean_MSE2 <- MSE_internal
 mean_Hcindex_KL2 <- Hcindex_KL
-mean_Bias_KL2 <- Bias_KL
-mean_SE_KL2 <- SE_KL
-mean_MSE_KL2 <- MSE_KL
 
 length.out = 5000
 eta_1 <- seq(0,5,length.out=(length.out+1))
@@ -174,30 +152,6 @@ ggplot(mr, aes(x=eta, y=value, group=Method)) +
   scale_linetype_manual(values=c("dotted", "solid"))+scale_size_manual( values = c(1,2) ) +
   theme(panel.border = element_blank(), 
         panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))+theme(axis.title = element_text(size = 14))+theme(axis.text = element_text(size = 14))+theme(legend.position = "none")
-
-#MSE
-library(colorspace)
-cols <- c("#E0B0A9", "#5E81B5")
-library(ggplot2)
-
-mr <- data.frame(Method = c(
-  rep("KL", (length.out+1)),
-  rep("Internal", (length.out+1))),
-  value = c(
-    mean_MSE_KL2,
-    rep(mean_MSE2, (length.out+1))),
-  eta = c(eta_1, eta_1)
-)
-mr$Method <- factor(mr$Method,
-                    levels = c('Internal', 'KL'),ordered = TRUE)
-ggplot(mr, aes(x=eta, y=value, group=Method)) + 
-  geom_line(aes(linetype=Method, color=Method, size = Method)) + 
-  geom_point(x=0, y=mean_MSE2, color="#E0B0A9", size=5)+
-  labs(y = "MSE", x = bquote(eta))+  scale_color_manual(values=cols)+ theme_bw() + scale_linetype_manual(values=c("dotted", "solid"))+scale_size_manual( values = c(1,2) )+
-  theme(panel.border = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))+theme(axis.title = element_text(size = 14))+theme(axis.text = element_text(size = 14))+theme(legend.position = "none")
-
-
 
 
 
